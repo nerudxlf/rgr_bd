@@ -1,5 +1,5 @@
 from flask import render_template, request, flash, url_for, redirect
-from flask_login import login_user, login_required
+from flask_login import login_user, login_required, logout_user
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from main import db, app
@@ -9,6 +9,27 @@ from .work_with_db import *
 @app.route('/')
 def index():
     return render_template('index.html')
+
+
+@app.route('/cabinet', methods=["GET", "POST"])
+@login_required
+def cabinet():
+    user_id = request.args.get('id')
+    user = Customer.query.filter_by(id=user_id).first()
+
+    if request.method == 'POST':
+        re_name = request.form.get('name')
+        re_surname = request.form.get('surname')
+        re_phone = request.form.get('phone')
+        if not (re_name, re_surname, re_phone):
+            return request
+        if re_name:
+            user.c_name = re_name
+        if re_surname:
+            user.c_surname = re_surname
+        if re_phone:
+            user.c_phone = re_phone
+    return render_template('cabinet.html', name=user.c_name, surname=user.c_surname, phone=user.c_phone)
 
 
 @app.route('/product')
@@ -32,7 +53,7 @@ def login_page():
         if user and check_password_hash(user.c_password, password):
             login_user(user)
             next_page = request.args.get('next')
-            return redirect(next_page)
+            return redirect(next_page + '?id='+str(user.id))
         else:
             flash('Login or password in not correct')
     else:
@@ -62,6 +83,13 @@ def register():
     return render_template('register.html')
 
 
+@app.route('/logout', methods=['GET', 'POST'])
+@login_required
+def logout():
+    logout_user()
+    return redirect('/')
+
+
 @app.errorhandler(401)
 def http_401_handler(error):
-    return redirect('login')
+    return redirect(url_for('login_page') + '?next=' + request.url)
