@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+{% block content %}
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <h4>
+                    Добавить продукт на сайт
+                </h4>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <form action="/add" method="POST" name="form_add">
+                    <table>
+                        <tr>
+                            <td>
+                                <h5>
+                                    Название
+                                </h5>
+                            </td>
+                            <td>
+                                <input type="text" name="product_name">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h5>
+                                    Описание
+                                </h5>
+                            </td>
+                            <td>
+                                <input type="text" name="product_description">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h5>
+                                    Цена
+                                </h5>
+                            </td>
+                            <td>
+                                <input type="text" name="product_price">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h5>
+                                    Id картинки
+                                </h5>
+                            </td>
+                            <td>
+                                <input type="text" name="product_photo">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="submit" value="add">
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-4">
+                <h4>Удалить товар</h4>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <form action="/delete" method="POST">
+                    <table>
+                        <tr>
+                            <td>
+                                <h5>
+                                    Название товара
+                                </h5>
+                            </td>
+                            <td>
+                                <input type="text" name="product_name">
+                            </td>
+                            <td>
+                                <input type="submit" value="delete">
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-4">
+                <h4>Обновить товар</h4>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <form action="update" method="POST" name="update">
+                    <table>
+                        <tr>
+                            <td>
+                                <h5>
+                                    Название
+                                </h5>
+                            </td>
+                            <td>
+                                <input type="text" name="check_name">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h5>
+                                    Новое название
+                                </h5>
+                            </td>
+                            <td>
+                                <input type="text" name="new_name">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h5>
+                                    Описание
+                                </h5>
+                            </td>
+                            <td>
+                                <input type="text" name="new_description">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h5>
+                                    Цена
+                                </h5>
+                            </td>
+                            <td>
+                                <input type="text" name="new_price">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h5>
+                                    id картинки
+                                </h5>
+                            </td>
+                            <td>
+                                <input type="text" name="new_pic">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="submit" value="update"></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+    </div>
+</section>
+{% endblock %}

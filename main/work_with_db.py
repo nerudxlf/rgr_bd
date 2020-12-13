@@ -10,6 +10,7 @@ class Customer(db.Model, UserMixin):
     c_phone = db.Column(db.String(16))
     c_login = db.Column(db.String(32), nullable=False)
     c_password = db.Column(db.String(32), nullable=False)
+    c_admin = db.Column(db.Integer)
 
 
 class Cart(db.Model):
@@ -31,7 +32,6 @@ class Product(db.Model):
     p_name = db.Column(db.String(32), nullable=False)
     p_description = db.Column(db.String(512), nullable=False)
     p_price = db.Column(db.String(8), nullable=False)
-    p_type_of_goods = db.Column(db.String(16), nullable=False)
     p_photo_id = db.Column(db.Integer, db.ForeignKey("product_photo.id"), nullable=False)
     p_photo = db.relationship("ProductPhoto", backref=db.backref('photo', lazy=True))
 
