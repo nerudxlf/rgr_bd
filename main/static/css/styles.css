@@ -1,24 +1,92 @@
 body{
-    background-color:#ebf2f0;
+    background-color: #F8F8F8;
+    
+}
+
+input[type=submit]{
+    margin-left: 10px;
+    background-color: #414361;
+    border-color: #2A2D43;
+    color: #F8F8F8;
+    border-radius: 5px;
+}
+
+input[type=submit]:hover{
+    background-color: #2A2D43;
+    border-color: #2A2D43;
+    
+}
+
+.desc{
+    padding-top:40px;
+    padding-right: 310px;
+}
+
+.desc h5{
+    color: #333333;
+}
+
+.desc p{
+    color: #333333;
+}
+
+.product_img{
+    display: block;
+    margin: auto;
+    height: 200px;
+}
+
+.row{
+    margin-top: 20px;
 }
 
 header{
-    height: 80px;
-    padding-top: 30px;
+    height: 40px;
     text-align: center;
 }
 
 header a{
     padding-left: 10px;
+    color: #333333;
 }
 
 .nav__bar{
-    color: #020baa;
-    font-size: 14pt;
+    font-weight: bold;
+    color: #333333;
+    font-size: 13pt;
     padding-right: 10px;
 }
 
-footer{
-    margin-top: 40px
-    height: 80px;
+.login__logout{
+    font-size: 14pt;
+    text-align: center;
+    color: #333333;
+}
+
+a:hover{ 
+    text-decoration: none;
+    color:#9BA2FF; 
+}
+
+section{
+    min-height: calc(90vh - 80px);
+}
+
+
+footer h5{
+    color:#9BA2FF;
+    font-size: 11pt;
+}
+
+.login{
+    margin-top: 20px;
+}
+
+.register{
+    margin-top: -10px;
+    margin-left: 0px;
+}
+
+.flashes{
+    text-align: ;
 }

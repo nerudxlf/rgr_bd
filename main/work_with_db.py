@@ -24,7 +24,7 @@ class CartProduct(db.Model):
     cp_cart_id = db.Column(db.Integer, db.ForeignKey("cart.id"), nullable=False)
     cp_cart = db.relationship("Cart", backref=db.backref("carts"), lazy=True)
     cp_product_id = db.Column(db.Integer, db.ForeignKey("product.id"), nullable=False)
-    cp_product = db.relationship("Product", backref=db.backref('products'), lazy=True)
+    cp_product = db.relationship("Product", backref=db.backref('products', passive_deletes=True), lazy=True)
 
 
 class Product(db.Model):

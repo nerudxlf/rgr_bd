@@ -2,3 +2,4 @@ env
 .idea
 main/__pycache__
 main/work.db
+*.jpg

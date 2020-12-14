@@ -109,15 +109,42 @@ def add():
     return redirect(url_for('index'))
 
 
-@app.route('/product')
+@app.route('/product', methods=['POST', 'GET'])
 def product():
-    return render_template('product.html', title_name="Product")
+    products = Product.query.all()
+    photo = ProductPhoto.query.all()
+    if request.method == 'POST':
+        try:
+            id_product = request.form.get('product')
+            customer = Customer.query.filter_by(c_login=g.user.c_login).first()
+            cart_user = Cart.query.filter_by(c_customer_id=customer.id).first()
+            new_cart_product = CartProduct(cp_cart_id=cart_user.id, cp_product_id=id_product)
+            db.session.add(new_cart_product)
+            db.session.commit()
+        except AttributeError:
+            return redirect(url_for('login_page')+"?next="+request.url)
+    return render_template('product.html', title_name="Product", products=products, photos=photo)
 
 
-@app.route('/cart', methods=["GET"])
+@app.route('/cart', methods=['GET', 'POST'])
 @login_required
 def cart():
-    return render_template('cart.html', title_name="Cart")
+    if request.method == 'GET':
+        list_product = []
+        customer = Customer.query.filter_by(c_login=g.user.c_login).first()
+        cart_user = Cart.query.filter_by(c_customer_id=customer.id).first()
+        product_id = CartProduct.query.filter_by(cp_cart_id=cart_user.id).all()
+        for i in product_id:
+            product_select = Product.query.filter_by(id=i.cp_product_id).first()
+            if product_select:
+                list_product.append(product_select)
+        return render_template('cart.html', title_name="Cart", products=list_product)
+    if request.method == 'POST':
+        id_product = request.form.get('delete')
+        obj = CartProduct.query.filter_by(cp_product_id=id_product).first()
+        db.session.delete(obj)
+        db.session.commit()
+        return redirect(url_for('cart'))
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -158,6 +185,11 @@ def register():
             hash_pwd = generate_password_hash(password)
             new_customer = Customer(c_name=name, c_surname=surname, c_phone=phone, c_login=login, c_password=hash_pwd)
             db.session.add(new_customer)
+            db.session.commit()
+
+            customer = Customer.query.filter_by(c_login=login).first()
+            new_cart = Cart(c_customer_id=customer.id)
+            db.session.add(new_cart)
             db.session.commit()
             return redirect('login')
     return render_template('register.html', title_name="register")
